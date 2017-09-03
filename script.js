@@ -23,6 +23,7 @@ Options
 ######################################################################
 */
 
+$( document ).ready(function() {
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 // Global variables
@@ -30,6 +31,9 @@ Options
 
 var triviaArray = [];
 
+// Set the start of the array. We will also use this to keep track of our place is the array.
+// Set it to minus so we can go to the first objext (0) in the array when we begin
+var j = -1;
 
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'
@@ -39,12 +43,7 @@ var triviaArray = [];
 var triviaObj1 = {
 
 	question: "What is the highest grossing anime film worldwide?",
-
-	option1: "Spirited Away",
-	option2: "Howl's Moving Castle",
-	option3: "Your Name",
-	option4: "Pokemon The Movie",
-
+	options: ["Spirited Away", "Howl's Moving Castle", "Your Name", "Pokemon The Movie"],
 	answer: "Your Name", 
 
 }
@@ -53,12 +52,7 @@ var triviaObj1 = {
 var triviaObj2 = {
 
 	question: "What is an Otaku?",
-
-	option1: "A type of sushi",
-	option2: "A type of anime fan",
-	option3: "A type of bullet train",
-	option4: "A type of bonsai",
-
+	options: ["A type of sushi", "A type of anime fan", "A type of bullet train", "A type of bonsai"],
 	answer: " type of anime fan", 
 
 }
@@ -66,12 +60,7 @@ var triviaObj2 = {
 var triviaObj3 = {
 
 	question: "What is historically the most popular professional sport in Japan?",
-
-	option1: "Baseball",
-	option2: "Basketball",
-	option3: "Sumo Wrestling",
-	option4: "Marital Arts",
-
+	options: ["Baseball", "Basketball", "Sumo Wrestling", "Marital Arts"],
 	answer: "Baseball", 
 
 }
@@ -85,10 +74,68 @@ triviaArray = [triviaObj1, triviaObj2, triviaObj3];
 // On-Click Events 
 //++++++++++++++++++++++++++++++++++++++
 
+//$("#startButton").on("click", triviaGenerator(triviaArray));
+$("#startButton").on("click", function() {
 
+		alert("startButton clicked!");
+		console.log(triviaArray);
+
+	triviaGenerator(triviaArray);
+
+});
 
 
 
 //======================================
 // Functions
 //======================================
+
+
+//We will use this function to generate our array.
+function triviaGenerator (arr) {
+
+		console.log("made it into the triviaGenerator function");
+		console.log("arr value", arr);
+
+	var arrayOfTrivias = arr;
+
+	//Go up one in the array (go to the next object in the array)
+	j = j + 1;
+
+	//Don't go beyond the end of the array, if we are at the end, go back to the beginning.
+	j = j % arrayOfTrivias.length;
+
+		console.log("arraryoftrivias value", arrayOfTrivias);
+
+	//Loop through the arrary of trivia objects
+	//for (var j = 0; j < arrayOfTrivias.length; j++) {
+			//console.log("made it into the first forloop (arrayOfTrivias)");
+
+
+		//Print the trivia's question to the page ===================================
+		//Make sure the div is clear for the insertion of the trivia's  question
+		$("#questionContainer").text("");
+
+		//Insert the question for the trivia we are on
+		var triviaQuestion = arrayOfTrivias[j].question;
+		$("#questionContainer").append( "<h2>" + triviaQuestion + "</h2>");
+		
+
+		var optionsArray = arrayOfTrivias[j].options;
+		console.log("options array value:", optionsArray);
+
+		// Loop through the options array for this trivia and print//append them as buttons to the screen.
+		$("#optionsContainer").text("");
+		for (var i = 0; i < optionsArray.length; i++) {
+
+					console.log("made it into the second forloop (append options)");
+
+			  $("#optionsContainer").append( "<button>" + "<h2>" + optionsArray[i] + "</h2> </button>");
+		}
+	
+	
+	//}
+
+}
+
+});
