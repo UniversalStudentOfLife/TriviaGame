@@ -29,11 +29,18 @@ $( document ).ready(function() {
 // Global variables
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
+
+//This is the array we will use to store our trivia objects.
 var triviaArray = [];
 
 // Set the start of the array. We will also use this to keep track of our place is the array.
 // Set it to minus so we can go to the first objext (0) in the array when we begin
 var j = -1;
+
+//Countdown timer variables
+var countdownNumber = 30;
+var intervalID;
+
 
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'
@@ -77,10 +84,11 @@ triviaArray = [triviaObj1, triviaObj2, triviaObj3];
 //$("#startButton").on("click", triviaGenerator(triviaArray));
 $("#startButton").on("click", function() {
 
-		alert("startButton clicked!");
+		//alert("startButton clicked!");
 		console.log(triviaArray);
 
 	triviaGenerator(triviaArray);
+	countdownTimer();
 
 });
 
@@ -89,6 +97,36 @@ $("#startButton").on("click", function() {
 //======================================
 // Functions
 //======================================
+
+
+// this will be our countdown timer.
+function countdownTimer () {
+
+	intervalId = setInterval(decrement, 1000);
+
+}
+
+// The decrement function.
+function decrement() {
+
+    // Decrease number by one.
+	countdownNumber--;
+
+	//Show the number in the countdown div.
+	$("#countdown").html("<h2>" + countdownNumber + "</h2>");
+
+
+	 //Once number hits zero...
+	if (countdownNumber === 0) {
+
+	//run the gameOver function.
+	// gameOver();
+
+	 //  Alert the user that time is up.
+	 alert("Times Up!");
+  }
+}
+
 
 
 //We will use this function to generate our array.
