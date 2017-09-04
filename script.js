@@ -23,6 +23,7 @@ Options
 ######################################################################
 */
 
+//Run these functions once the page loads
 $( document ).ready(function() {
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -39,7 +40,7 @@ var j = -1;
 
 //Countdown timer variables
 var countdownNumber = 30;
-var intervalID;
+var intervalId;
 
 
 
@@ -116,18 +117,28 @@ function decrement() {
 	$("#countdown").html("<h2>" + countdownNumber + "</h2>");
 
 
-	 //Once number hits zero...
+	 //Once number hits zero run gameover function.
 	if (countdownNumber === 0) {
 
 	//run the gameOver function.
-	// gameOver();
-
-	 //  Alert the user that time is up.
-	 alert("Times Up!");
+	 gameOver();
   }
 }
 
 
+    function gameOver() {
+
+      //  Clears our intervalId
+      //  We just pass the name of the interval
+      //  to the clearInterval function.
+      clearInterval(intervalId);
+
+      	 //  Alert the user that time is up.
+	 alert("Times Up!");
+    }
+
+
+    //  Execute the run function.
 
 //We will use this function to generate our array.
 function triviaGenerator (arr) {
