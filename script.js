@@ -39,9 +39,11 @@ var triviaArray = [];
 var j = -1;
 
 //Countdown timer variables
-var countdownNumber = 5;
+var countdownNumber = 60;
 var intervalId;
 
+//button trackers
+var buttonClicked;
 
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'
@@ -91,8 +93,30 @@ $("#startButton").on("click", function() {
 	triviaGenerator(triviaArray);
 	countdownTimer();
 
+	//hide button afterwards
+	$("#startButton").hide();
+
 });
 
+// handles the user button clicks
+$("body").on("click", ".optionButton", function () {
+
+	buttonClicked = this;
+	console.log("button clicked:", buttonClicked);
+
+	console.log("Container ID button is in:", $(this).parent().attr('id'));
+
+	console.log("button has been clicked");
+
+	//if user clicks on an option button, run the following
+	if ($(this).parent().attr('id') === "optionsContainer") {
+
+		buttonClicked = this;
+		alert("button clicked in container", buttonClicked);
+		
+	}
+
+});
 
 
 //======================================
@@ -137,7 +161,7 @@ function decrement() {
 			//alert("Times Up!");
 		
 		//reset and restart the countdown.
-		countdownNumber = 6;
+		countdownNumber = 60;
 		countdownTimer();
 
 		//move to the next trivia object.
@@ -186,9 +210,10 @@ function triviaGenerator (arr) {
 
 					console.log("made it into the second forloop (append options)");
 
-			  $("#optionsContainer").append( "<button>" + "<h2>" + optionsArray[i] + "</h2> </button>");
+			  $("#optionsContainer").append("<button class='optionButton'>" + optionsArray[i] + "</h2> </button>");
+
 		}
-	
+
 	
 	//}
 
