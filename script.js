@@ -19,6 +19,11 @@ Options
 	- After buttons are clicked display answer, determine if guessed correctly, start countdown, move to next page
 	- Create an append function to append all of the options in an Triva Object to the page
 	- 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+changes made in trouble shooting.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+removed extra "," off of the objects properties
 
 ######################################################################
 */
@@ -45,6 +50,14 @@ var intervalId;
 //button trackers
 var buttonClicked;
 
+//comparison variables
+var triviaAnswer; 
+
+//score variables
+var correctAnswers = 0;
+var incorrectAnswers = 0;
+var noAnswers = 0;
+
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'
 // Objects
@@ -54,7 +67,7 @@ var triviaObj1 = {
 
 	question: "What is the highest grossing anime film worldwide?",
 	options: ["Spirited Away", "Howl's Moving Castle", "Your Name", "Pokemon The Movie"],
-	answer: "Your Name", 
+	answer: "Your Name" 
 
 }
 
@@ -63,15 +76,15 @@ var triviaObj2 = {
 
 	question: "What is an Otaku?",
 	options: ["A type of sushi", "A type of anime fan", "A type of bullet train", "A type of bonsai"],
-	answer: " type of anime fan", 
+	answer: "A type of anime fan" 
 
-}
+}	
 
 var triviaObj3 = {
 
 	question: "What is historically the most popular professional sport in Japan?",
 	options: ["Baseball", "Basketball", "Sumo Wrestling", "Marital Arts"],
-	answer: "Baseball", 
+	answer: "Baseball" 
 
 }
 
@@ -84,16 +97,17 @@ triviaArray = [triviaObj1, triviaObj2, triviaObj3];
 // On-Click Events 
 //++++++++++++++++++++++++++++++++++++++
 
-//$("#startButton").on("click", triviaGenerator(triviaArray));
 $("#startButton").on("click", function() {
 
-		//alert("startButton clicked!");
-		console.log(triviaArray);
+		//console.log(triviaArray);
 
+	// pass the array of triviaObjects to the triviaGenerator
 	triviaGenerator(triviaArray);
+
+	//Start the countdown/timer
 	countdownTimer();
 
-	//hide button afterwards
+	//Hide start button afterward pressed, we won't need it anymore
 	$("#startButton").hide();
 
 });
@@ -101,15 +115,26 @@ $("#startButton").on("click", function() {
 // handles the user button clicks
 $("body").on("click", ".optionButton", function () {
 
-	buttonClicked = this.innerText;
-	console.log("button clicked:", buttonClicked);
-
-	console.log("Container ID button is in:", $(this).parent().attr('id'));
-
+	buttonClicked = this.innerText.trim();
 	//if user clicks on an option button, run the following
 	if ($(this).parent().attr('id') === "optionsContainer") {
 
 	console.log("button clicked:", buttonClicked);
+	console.log("triviaAnswer:", triviaAnswer);
+
+
+		//Run the comparison, check the buttons text and the "answer" from the object.
+		if (buttonClicked == triviaAnswer.trim()) {
+
+			alert("CORRECT");
+
+		} else {
+
+			alert("WRONG");
+
+
+		}
+
 		
 	}
 
@@ -122,7 +147,7 @@ $("body").on("click", ".optionButton", function () {
 
 
 // this will be our countdown timer.
-function countdownTimer () {
+function countdownTimer() {
 
 	intervalId = setInterval(decrement, 1000);
 
@@ -165,14 +190,11 @@ function decrement() {
 		triviaGenerator(triviaArray);
     }
 
-
-    //  Execute the run function.
-
 //We will use this function to generate our array.
 function triviaGenerator (arr) {
 
-		console.log("made it into the triviaGenerator function");
-		console.log("arr value", arr);
+		//console.log("made it into the triviaGenerator function");
+		//console.log("arr value", arr);
 
 	var arrayOfTrivias = arr;
 
@@ -182,15 +204,16 @@ function triviaGenerator (arr) {
 	//Don't go beyond the end of the array, if we are at the end, go back to the beginning.
 	j = j % arrayOfTrivias.length;
 
-		console.log("arraryoftrivias value", arrayOfTrivias);
+		//console.log("arraryoftrivias value", arrayOfTrivias);
 
-	//Loop through the arrary of trivia objects
-	//for (var j = 0; j < arrayOfTrivias.length; j++) {
-			//console.log("made it into the first forloop (arrayOfTrivias)");
+		//assign the trivia's answer to a global variable so we can do a comparrison against the users answer
+		//triviaAnswer = triviaAnswer += arrayOfTrivias[j].answer;
+		triviaAnswer = arrayOfTrivias[j].answer;
 
+		//console.log("the answer is:", triviaAnswer);
 
 		//Print the trivia's question to the page ===================================
-		//Make sure the div is clear for the insertion of the trivia's  question
+		//Make sure the div is clear for the insertion of the trivia's question
 		$("#questionContainer").text("");
 
 		//Insert the question for the trivia we are on
@@ -199,13 +222,13 @@ function triviaGenerator (arr) {
 		
 
 		var optionsArray = arrayOfTrivias[j].options;
-		console.log("options array value:", optionsArray);
+		//console.log("options array value:", optionsArray);
 
 		// Loop through the options array for this trivia and print//append them as buttons to the screen.
 		$("#optionsContainer").text("");
 		for (var i = 0; i < optionsArray.length; i++) {
 
-					console.log("made it into the second forloop (append options)");
+					//console.log("made it into the second forloop (append options)");
 
 			  $("#optionsContainer").append("<button class='optionButton btn btn-default'>" + "<h2>" + optionsArray[i] + "</h2> </button>");
 
