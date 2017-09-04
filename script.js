@@ -127,11 +127,12 @@ $("body").on("click", ".optionButton", function () {
 		if (buttonClicked == triviaAnswer.trim()) {
 
 			alert("CORRECT");
+			correctCounter()
 
 		} else {
 
 			alert("WRONG");
-
+			incorrectCounter() 
 
 		}
 
@@ -144,6 +145,31 @@ $("body").on("click", ".optionButton", function () {
 //======================================
 // Functions
 //======================================
+
+function correctCounter() {
+
+	correctAnswers = ++correctAnswers;
+
+	console.log("correctAnswers:", correctAnswers)
+
+}
+
+function incorrectCounter() {
+
+	incorrectAnswers = ++incorrectAnswers;
+
+	console.log("incorrectAnswers:", incorrectAnswers)
+
+}
+
+function noAnswerCounter() {
+
+	noAnswers = ++noAnswers;
+
+	console.log("noAnswers:", noAnswers)
+
+}
+
 
 
 // this will be our countdown timer.
@@ -185,6 +211,8 @@ function decrement() {
 		//reset and restart the countdown.
 		countdownNumber = 60;
 		countdownTimer();
+
+		noAnswerCounter()
 
 		//move to the next trivia object.
 		triviaGenerator(triviaArray);
