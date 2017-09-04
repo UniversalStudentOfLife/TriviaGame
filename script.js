@@ -12,6 +12,7 @@ time remaining countdown
 Trivia question 
 	- build trivia array
 
+
 Options 
 	- build option array (Might not need option array, if we make each trivia activity an object)
 	- make answers clickable buttons
@@ -44,7 +45,7 @@ var triviaArray = [];
 var j = -1;
 
 //Countdown timer variables
-var countdownNumber = 60;
+var countdownNumber = 15;
 var intervalId;
 
 //button trackers
@@ -71,7 +72,6 @@ var triviaObj1 = {
 
 }
 
-
 var triviaObj2 = {
 
 	question: "What is an Otaku?",
@@ -89,8 +89,6 @@ var triviaObj3 = {
 }
 
 triviaArray = [triviaObj1, triviaObj2, triviaObj3]; 
-
-
 
 
 //++++++++++++++++++++++++++++++++++++++
@@ -124,7 +122,7 @@ $("body").on("click", ".optionButton", function () {
 
 
 		//Run the comparison, check the buttons text and the "answer" from the object.
-		if (buttonClicked == triviaAnswer.trim()) {
+		if (buttonClicked.toLowerCase() === triviaAnswer.toLowerCase().trim()) {
 
 			alert("CORRECT");
 			correctCounter()
@@ -149,32 +147,35 @@ $("body").on("click", ".optionButton", function () {
 function correctCounter() {
 
 	correctAnswers = ++correctAnswers;
-
-	console.log("correctAnswers:", correctAnswers)
+	$("#questionContainer").html( "<h2>" + "Correct!" + "</h2>");
+	revealAnswer();
 
 }
 
 function incorrectCounter() {
 
 	incorrectAnswers = ++incorrectAnswers;
-
-	console.log("incorrectAnswers:", incorrectAnswers)
+	$("#questionContainer").html( "<h2>" + "Incorrect!!" + "</h2>");
+	revealAnswer();
 
 }
 
 function noAnswerCounter() {
 
 	noAnswers = ++noAnswers;
-
-	console.log("noAnswers:", noAnswers)
-
+	$("#questionContainer").html( "<h2>" + "Times Up!" + "</h2>");
+	revealAnswer();
 }
 
 
+function revealAnswer() {
+
+	$("#optionsContainer").html("");
+	$("#optionsContainer").append("The correct answer was:", "<h2>", String(triviaAnswer) ,"</h2>");
+}
 
 // this will be our countdown timer.
 function countdownTimer() {
-
 	intervalId = setInterval(decrement, 1000);
 
 }
@@ -197,7 +198,6 @@ function decrement() {
   }
 }
 
-
     function timesUp() {
 
       //  Clears our intervalId
@@ -209,14 +209,14 @@ function decrement() {
 			//alert("Times Up!");
 		
 		//reset and restart the countdown.
-		countdownNumber = 60;
+		countdownNumber = 15;
 		countdownTimer();
-
 		noAnswerCounter()
 
 		//move to the next trivia object.
 		triviaGenerator(triviaArray);
     }
+
 
 //We will use this function to generate our array.
 function triviaGenerator (arr) {
@@ -240,13 +240,10 @@ function triviaGenerator (arr) {
 
 		//console.log("the answer is:", triviaAnswer);
 
-		//Print the trivia's question to the page ===================================
-		//Make sure the div is clear for the insertion of the trivia's question
-		$("#questionContainer").text("");
-
+		//Print the trivia's question to the page ================================
 		//Insert the question for the trivia we are on
 		var triviaQuestion = arrayOfTrivias[j].question;
-		$("#questionContainer").append( "<h2>" + triviaQuestion + "</h2>");
+		$("#questionContainer").html( "<h2>" + triviaQuestion + "</h2>");
 		
 
 		var optionsArray = arrayOfTrivias[j].options;
