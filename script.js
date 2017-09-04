@@ -39,7 +39,7 @@ var triviaArray = [];
 var j = -1;
 
 //Countdown timer variables
-var countdownNumber = 30;
+var countdownNumber = 5;
 var intervalId;
 
 
@@ -131,10 +131,17 @@ function decrement() {
       //  Clears our intervalId
       //  We just pass the name of the interval
       //  to the clearInterval function.
-      clearInterval(intervalId);
+     	clearInterval(intervalId);
 
-      	 //  Alert the user that time is up.
-	 alert("Times Up!");
+      	 // Alert the user that time is up.
+			//alert("Times Up!");
+		
+		//reset and restart the countdown.
+		countdownNumber = 6;
+		countdownTimer();
+
+		//move to the next trivia object.
+		triviaGenerator(triviaArray);
     }
 
 
