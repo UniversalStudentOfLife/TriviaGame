@@ -121,12 +121,12 @@ function decrement() {
 	if (countdownNumber === 0) {
 
 	//run the gameOver function.
-	 gameOver();
+	 timesUp();
   }
 }
 
 
-    function gameOver() {
+    function timesUp() {
 
       //  Clears our intervalId
       //  We just pass the name of the interval
