@@ -101,18 +101,15 @@ $("#startButton").on("click", function() {
 // handles the user button clicks
 $("body").on("click", ".optionButton", function () {
 
-	buttonClicked = this;
+	buttonClicked = this.innerText;
 	console.log("button clicked:", buttonClicked);
 
 	console.log("Container ID button is in:", $(this).parent().attr('id'));
 
-	console.log("button has been clicked");
-
 	//if user clicks on an option button, run the following
 	if ($(this).parent().attr('id') === "optionsContainer") {
 
-		buttonClicked = this;
-		alert("button clicked in container", buttonClicked);
+	console.log("button clicked:", buttonClicked);
 		
 	}
 
@@ -210,7 +207,7 @@ function triviaGenerator (arr) {
 
 					console.log("made it into the second forloop (append options)");
 
-			  $("#optionsContainer").append("<button class='optionButton'>" + optionsArray[i] + "</h2> </button>");
+			  $("#optionsContainer").append("<button class='optionButton btn btn-default'>" + "<h2>" + optionsArray[i] + "</h2> </button>");
 
 		}
 
