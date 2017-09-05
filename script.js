@@ -42,11 +42,12 @@ var triviaArray = [];
 
 // Set the start of the array. We will also use this to keep track of our place is the array.
 // Set it to minus so we can go to the first objext (0) in the array when we begin
-var j = -1;
+var j = 0;
 
 //Countdown timer variables
-var countdownNumber = 15;
+var countdownNumber = 16;
 var intervalId;
+var timerFlag = false;
 
 //button trackers
 var buttonClicked;
@@ -107,6 +108,7 @@ $("#startButton").on("click", function() {
 
 	//Hide start button afterward pressed, we won't need it anymore
 	$("#startButton").hide();
+	$("#welcomeBanner").text("");
 
 });
 
@@ -172,6 +174,15 @@ function revealAnswer() {
 
 	$("#optionsContainer").html("");
 	$("#optionsContainer").append("The correct answer was:", "<h2>", String(triviaAnswer) ,"</h2>");
+	
+	stop();
+
+	if (timerFlag === false) {
+		countdownNumber = 16;
+		setTimeout(countdownTimer, 5000);
+		setTimeout(nextTrivia, 5000);
+	}
+
 }
 
 // this will be our countdown timer.
@@ -194,24 +205,35 @@ function decrement() {
 	if (countdownNumber === 0) {
 
 	//run the gameOver function.
-	 timesUp();
+	 //timesUp();
+	stop();
+	noAnswerCounter()
+
   }
 }
 
-    function timesUp() {
+    function stop() {
 
       //  Clears our intervalId
       //  We just pass the name of the interval
       //  to the clearInterval function.
-     	clearInterval(intervalId);
+      clearInterval(intervalId);
+    }
+
+
+    function nextTrivia() {
+
+      //  Clears our intervalId
+      //  We just pass the name of the interval
+      //  to the clearInterval function.
+     	//clearInterval(intervalId);
 
       	 // Alert the user that time is up.
 			//alert("Times Up!");
 		
 		//reset and restart the countdown.
-		countdownNumber = 15;
-		countdownTimer();
-		noAnswerCounter()
+	
+		//countdownTimer();
 
 		//move to the next trivia object.
 		triviaGenerator(triviaArray);
@@ -227,10 +249,16 @@ function triviaGenerator (arr) {
 	var arrayOfTrivias = arr;
 
 	//Go up one in the array (go to the next object in the array)
-	j = j + 1;
+	
+	console.log("j index value", j);
+
+
+	if (j < arrayOfTrivias.length) {
+
+	
 
 	//Don't go beyond the end of the array, if we are at the end, go back to the beginning.
-	j = j % arrayOfTrivias.length;
+
 
 		//console.log("arraryoftrivias value", arrayOfTrivias);
 
@@ -259,9 +287,41 @@ function triviaGenerator (arr) {
 
 		}
 
-	
-	//}
+		++j
+
+	} else {
+
+
+		console.log("at the end");
+		stop();
+		timerFlag = true;
+		$('#dynamicDiv').children().text("");
+		displayResults();
+
+
+
+	}
 
 }
+
+
+
+function displayResults() {
+
+	$("#resultsContainer").append("<h1>", "Trivia Results", "</h1>");
+
+
+	$("#resultsContainer").append("<h2>", "Correct answers:", correctAnswers), "</h2>";
+	$("#resultsContainer").append("<h2>", "Incorrect answers:", incorrectAnswers), "</h2>";
+	$("#resultsContainer").append("<h2>", "Unanswered answers:", noAnswers), "</h2>";
+}
+
+
+
+
+
+
+
+
 
 });
