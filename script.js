@@ -63,11 +63,11 @@ var noAnswers = 0;
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'
 // Objects
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%q%%%%%%%
 
 var triviaObj1 = {
 
-	question: "What is the highest grossing anime film worldwide?",
+	question: "What is the highest grossing japanese animation film worldwide?",
 	options: ["Spirited Away", "Howl's Moving Castle", "Your Name", "Pokemon The Movie"],
 	answer: "Your Name" 
 
@@ -75,18 +75,17 @@ var triviaObj1 = {
 
 var triviaObj2 = {
 
-	question: "What is an Otaku?",
-	options: ["A type of sushi", "A type of anime fan", "A type of bullet train", "A type of bonsai"],
-	answer: "A type of anime fan" 
+	question: "What is historically the most popular professional sport in Japan?",
+	options: ["Baseball", "Basketball", "Sumo Wrestling", "Marital Arts"],
+	answer: "Baseball" 
 
 }	
 
 var triviaObj3 = {
 
-	question: "What is historically the most popular professional sport in Japan?",
-	options: ["Baseball", "Basketball", "Sumo Wrestling", "Marital Arts"],
-	answer: "Baseball" 
-
+	question: "What is an Otaku?",
+	options: ["A type of sushi", "A type of anime fan", "A type of bullet train", "A type of bonsai"],
+	answer: "A type of anime fan"
 }
 
 triviaArray = [triviaObj1, triviaObj2, triviaObj3]; 
@@ -126,12 +125,12 @@ $("body").on("click", ".optionButton", function () {
 		//Run the comparison, check the buttons text and the "answer" from the object.
 		if (buttonClicked.toLowerCase() === triviaAnswer.toLowerCase().trim()) {
 
-			alert("CORRECT");
+			
 			correctCounter()
 
 		} else {
 
-			alert("WRONG");
+			
 			incorrectCounter() 
 
 		}
@@ -283,7 +282,7 @@ function triviaGenerator (arr) {
 
 					//console.log("made it into the second forloop (append options)");
 
-			  $("#optionsContainer").append("<button class='optionButton btn btn-default'>" + "<h2>" + optionsArray[i] + "</h2> </button>");
+			  $("#optionsContainer").append("<button class='optionButton btn btn-default btn-block'>" + "<h2>" + optionsArray[i] + "</h2> </button>");
 
 		}
 
@@ -299,7 +298,6 @@ function triviaGenerator (arr) {
 		displayResults();
 
 
-
 	}
 
 }
@@ -309,7 +307,6 @@ function triviaGenerator (arr) {
 function displayResults() {
 
 	$("#resultsContainer").append("<h1>", "Trivia Results", "</h1>");
-
 
 	$("#resultsContainer").append("<h2>", "Correct answers:", correctAnswers), "</h2>";
 	$("#resultsContainer").append("<h2>", "Incorrect answers:", incorrectAnswers), "</h2>";

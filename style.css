@@ -22,6 +22,9 @@ html {
 
 .optionbutton {
 
-	display: block;
+    margin: 0;
+    background-color: transparent;
+    text-align: center;
 
+	
 }
